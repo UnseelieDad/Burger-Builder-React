@@ -15,8 +15,15 @@ const controls = [
 // ingredients to the burger manually.
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
-        {controls.map(crtl => {
-            return <BuildControl key={crtl.label} label={crtl.label}/>
+        {controls.map(ctrl => {
+            // disabled access the disabled infor for that specific type
+            return <BuildControl 
+                key={ctrl.label} 
+                label={ctrl.label}
+                added={() => props.ingredientAdded(ctrl.type)}
+                removed={() => props.ingredientRemoved(ctrl.type)}
+                disabled={props.disabled[ctrl.type]}
+            />
         })}
     </div>
 );
