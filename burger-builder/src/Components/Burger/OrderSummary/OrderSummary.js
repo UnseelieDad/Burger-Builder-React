@@ -18,6 +18,8 @@ const orderSummary = (props) => {
         });
     
     // Using Aux since the summary is wrapped by a Modal
+    // Has two custom button components for canceling and continuing payment
+    // Outputs a dynamic list for the ingredient summary
     return (
         <Aux>
             <h3>Your Order</h3>
