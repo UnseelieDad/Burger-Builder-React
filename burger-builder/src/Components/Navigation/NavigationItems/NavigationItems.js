@@ -4,14 +4,16 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 
 // Component to contain a list of navigation items
 const navigationItems = (props) => (
-    <ul className={classes.NavigationItems}>
-        <NavigationItem link="/" active>
-            Burger Builder
-        </NavigationItem>
-        <NavigationItem link="/">
-            Checkout
-        </NavigationItem>
-    </ul>
+    <nav>
+        <ul className={classes.NavigationItems}>
+            <NavigationItem link="/" active>
+                Burger Builder
+            </NavigationItem>
+            <NavigationItem link="/">
+                Checkout
+            </NavigationItem>
+        </ul>
+    </nav>
 );
 
 export default navigationItems;
