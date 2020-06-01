@@ -5,7 +5,9 @@ import classes from "./Logo.module.css";
 
 // Component to hold the logo for the burger builder
 const logo = (props) => (
-    <div className={classes.Logo}>
+    // height can be set custom by passing in a height prop
+    // but height is generally controlled by scoped classes in containing parent
+    <div className={classes.Logo} style={{height: props.height}}>
         <img src={burgerLogo} alt="My Burger"/>
     </div>
 );
