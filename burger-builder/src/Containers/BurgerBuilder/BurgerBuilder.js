@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Aux from "../../HOC/Auxilary";
 import Burger from "../../Components/Burger/Burger";
 import BuildControls from "../../Components/Burger/BuildControls/BuildControls";
+import Modal from "../../Components/UI/Modal/Modal";
+import OrderSummary from "../../Components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -18,7 +20,32 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0
     },
-    totalPrice: 4
+    totalPrice: 4,
+    purchaseable: false,
+    purchasing: false
+  }
+
+  // Determine if the burger has enough ingredients to be purchased
+  // May not get updated state if just using the regular container state
+  // So passing in updated state from the add/remove handlers
+  updatePurchaseState = (ingredients) => {
+    // For each key in the object propulate the array with
+    // the value of that key
+    const sum = Object.keys(ingredients)
+      .map(igKey => {
+        return ingredients[igKey]
+      })
+      .reduce((sum, el) => { // reduce the array to the sum of prices
+        // Start sum at 0, return sum + el to be stored back into sum for the
+        // next element in the array
+        return sum + el;
+      }, 0);
+
+      this.setState({purchaseable: sum > 0});
+  }
+
+  purchaseHandler = () => {
+    this.setState({purchasing: true});
   }
 
   addIngredientHandler = (type) => {
@@ -38,6 +65,7 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice + priceAddition;
     
     this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+    this.updatePurchaseState(updatedIngredients);
   }
 
   // Same as add but in reverse
@@ -56,6 +84,7 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice - priceSubtraction;
 
     this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+    this.updatePurchaseState(updatedIngredients);
   }
 
   render() {
@@ -71,12 +100,17 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
+        <Modal show={this.state.purchasing}>
+          <OrderSummary ingredients={this.state.ingredients}/>  
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls 
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disabledInfo}
           price={this.state.totalPrice}
+          purchaseable={this.state.purchaseable}
+          ordered={this.purchaseHandler}
         />
       </Aux>
     );
