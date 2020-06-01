@@ -15,6 +15,7 @@ const controls = [
 // ingredients to the burger manually.
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
         {controls.map(ctrl => {
             // disabled access the disabled infor for that specific type
             return <BuildControl 
