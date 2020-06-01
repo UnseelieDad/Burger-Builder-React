@@ -21,4 +21,11 @@ const modal = (props) => (
     </Aux>
 );
 
-export default modal;
+// Component should only re-render if props.show changes
+const noChanges = (prevProps, nextProps) => {
+    return prevProps.show === nextProps.show;
+}
+
+// If no changes is false, re-render Modal and order summary
+// Also controls updating for Order Summary
+export default React.memo(modal, noChanges);
