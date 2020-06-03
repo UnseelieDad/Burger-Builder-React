@@ -8,7 +8,7 @@ const controls = [
     {label: "Salad", type: "salad"},
     {label: "Bacon", type: "bacon"},
     {label: "Cheese", type: "cheese"},
-    {label: "Meet", type: "meat"}
+    {label: "Meat", type: "meat"}
 ];
 
 // Section of the page containing the controls for adding
