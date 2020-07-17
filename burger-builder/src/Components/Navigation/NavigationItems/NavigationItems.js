@@ -4,18 +4,14 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 
 // Component to contain a list of navigation items
 const navigationItems = (props) => {
-    // Desktop only class causes navigation items to disappear
-    // on the toolbar in mobile 
-    return (
-        <ul className={classes.NavigationItems}>
-            <NavigationItem active link="/">
-                Burger Builder
-            </NavigationItem>
-            <NavigationItem link="/">
-                Checkout
-            </NavigationItem>
-        </ul>
-    );
+  // Desktop only class causes navigation items to disappear
+  // on the toolbar in mobile
+  return (
+    <ul className={classes.NavigationItems}>
+      <NavigationItem link="/" exact>Burger Builder</NavigationItem>
+      <NavigationItem link="/orders">Orders</NavigationItem>
+    </ul>
+  );
 };
 
 export default navigationItems;
