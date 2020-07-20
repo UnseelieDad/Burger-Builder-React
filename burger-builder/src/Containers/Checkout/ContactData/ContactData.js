@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import axios from '../../../axios-orders';
+import axios from "../../../axios-orders";
 
 import Button from "../../../Components/UI/Button/Button";
 import Spinner from "../../../Components/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
+import Input from "../../../Components/UI/Input/Input";
 
 class ContactData extends Component {
   state = {
@@ -13,7 +14,7 @@ class ContactData extends Component {
       street: "",
       postalCode: "",
     },
-    loading: false
+    loading: false,
   };
 
   orderHandler = (event) => {
@@ -40,7 +41,7 @@ class ContactData extends Component {
       .then((response) => {
         console.log(response);
         this.setState({ loading: false });
-        this.props.history.push('/');
+        this.props.history.push("/");
       })
       .catch((error) => {
         console.log(error);
@@ -51,34 +52,34 @@ class ContactData extends Component {
   render() {
     let form = (
       <form>
-          <input
-            className={classes.Input}
-            type="text"
-            name="name"
-            placeholder="Your Name"
-          />
-          <input
-            className={classes.Input}
-            type="email"
-            name="email"
-            placeholder="Your Email"
-          />
-          <input
-            className={classes.Input}
-            type="text"
-            name="street"
-            placeholder="Your Street"
-          />
-          <input
-            className={classes.Input}
-            type="text"
-            name="postal"
-            placeholder="Your Postal Code"
-          />
-          <Button btnType="Success" clicked={this.orderHandler}>
-            ORDER
-          </Button>
-        </form>
+        <Input
+          inputType="input"
+          type="text"
+          name="name"
+          placeholder="Your Name"
+        />
+        <Input
+          inputtype="input"
+          type="email"
+          name="email"
+          placeholder="Your Email"
+        />
+        <Input
+          inputtype="input"
+          type="text"
+          name="street"
+          placeholder="Your Street"
+        />
+        <Input
+          inputtype="input"
+          type="text"
+          name="postal"
+          placeholder="Your Postal Code"
+        />
+        <Button btnType="Success" clicked={this.orderHandler}>
+          ORDER
+        </Button>
+      </form>
     );
     if (this.state.loading) {
       form = <Spinner />;
