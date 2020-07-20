@@ -27,6 +27,7 @@ const input = (props) => {
         />
       );
       break;
+    
     default:
       inputElement = (
         <input
