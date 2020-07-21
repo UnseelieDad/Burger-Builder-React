@@ -63,6 +63,7 @@ const input = (props) => {
       );
   }
 
+  // TODO: Feature extention: Add validation error messages
   return (
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>

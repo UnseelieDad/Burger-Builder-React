@@ -85,9 +85,12 @@ class ContactData extends Component {
             { value: "cheapest", displayValue: "Cheapest" },
           ],
         },
-        value: "",
+        value: "fastest",
+        validation: {},
+        valid: true
       },
     },
+    formIsValid: false,
     loading: false,
   };
   
@@ -156,7 +159,13 @@ class ContactData extends Component {
     updatedFormElement.touched = true;
     // update the cloned object
     updatedOrderForm[inputIdentifier] = updatedFormElement;
-    this.setState({orderForm: updatedOrderForm});
+    
+    let formIsValid = true;
+    for (let inputIdentifier in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
+    }
+    
+    this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
   }
 
   render() {
@@ -183,7 +192,7 @@ class ContactData extends Component {
             shouldValidate={formElement.config.validation}
           />
         ))}
-        <Button btnType="Success">
+        <Button btnType="Success" disabled={!this.state.formIsValid}>
           ORDER
         </Button>
       </form>
