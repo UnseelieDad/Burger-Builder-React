@@ -8,6 +8,7 @@ import Input from "../../../Components/UI/Input/Input";
 
 class ContactData extends Component {
   state = {
+    // Order form data used to generate input components dynamically
     orderForm: {
       name: {
         elementType: "input",

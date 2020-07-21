@@ -27,7 +27,18 @@ const input = (props) => {
         />
       );
       break;
-    
+    case "select":
+      inputElement = (
+        <select className={classes.InputElement} value={props.value}>
+          {
+            // Create select options dynamically from options in contact data
+            props.elementConfig.options.map((option) => (
+              <option key={option.value} value={option.value}>{option.displayValue}</option>
+            ))
+          }
+        </select>
+      );
+      break;
     default:
       inputElement = (
         <input
