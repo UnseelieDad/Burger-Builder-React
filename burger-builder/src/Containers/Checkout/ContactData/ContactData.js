@@ -63,7 +63,8 @@ class ContactData extends Component {
     },
     loading: false,
   };
-
+  
+  // submit orders
   orderHandler = (event) => {
     event.preventDefault();
     console.log(this.props.ingredients);
@@ -86,6 +87,22 @@ class ContactData extends Component {
       });
   };
 
+  // Set up two way binding for form inputs
+  inputChangedHandler = (event, inputIdentifier) => {
+    // clone state to change it immutably
+    const updatedOrderForm = {
+      ...this.state.orderForm
+    };
+    // deep clone the value at the input identifier to change the value immutably
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier]
+    };
+    updatedFormElement.value = event.target.value;
+    // update the cloned object
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    this.setState({orderForm: updatedOrderForm});
+  }
+
   render() {
     // Store field configs from order form
     const formElementsArray = [];
@@ -104,6 +121,7 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
         <Button btnType="Success" clicked={this.orderHandler}>

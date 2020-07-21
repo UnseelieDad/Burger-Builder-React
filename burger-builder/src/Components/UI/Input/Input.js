@@ -12,6 +12,7 @@ const input = (props) => {
     case "input":
       inputElement = (
         <input
+          onChange={props.changed}
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
@@ -21,6 +22,7 @@ const input = (props) => {
     case "textarea":
       inputElement = (
         <textarea
+          onChange={props.changed}
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
@@ -29,11 +31,17 @@ const input = (props) => {
       break;
     case "select":
       inputElement = (
-        <select className={classes.InputElement} value={props.value}>
+        <select
+          onChange={props.changed}
+          className={classes.InputElement}
+          value={props.value}
+        >
           {
             // Create select options dynamically from options in contact data
             props.elementConfig.options.map((option) => (
-              <option key={option.value} value={option.value}>{option.displayValue}</option>
+              <option key={option.value} value={option.value}>
+                {option.displayValue}
+              </option>
             ))
           }
         </select>
@@ -42,6 +50,7 @@ const input = (props) => {
     default:
       inputElement = (
         <input
+          onChange={props.changed}
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
