@@ -16,6 +16,10 @@ class BurgerBuilder extends Component {
     purchasing: false
   };
 
+  componentDidMount () {
+    this.props.onInitIngredients();
+  }
+
   // Determine if the burger has enough ingredients to be purchased
   // May not get updated state if just using the regular container state
   // So passing in updated state from the add/remove handlers
@@ -104,14 +108,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state =>{
   return {
     ings: state.ingredients,
-    price: state.totalPrice
+    price: state.totalPrice,
+    error: state.error
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: (ingName) => dispatch(builderActions.addIngredient(ingName)),
-    onIngredientRemoved: (ingName) => dispatch(builderActions.removeIngredient(ingName))
+    onIngredientRemoved: (ingName) => dispatch(builderActions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(builderActions.initIngredients())
   }
 }
 
