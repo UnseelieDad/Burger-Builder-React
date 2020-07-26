@@ -6,29 +6,15 @@ import Burger from "../../Components/Burger/Burger";
 import BuildControls from "../../Components/Burger/BuildControls/BuildControls";
 import Modal from "../../Components/UI/Modal/Modal";
 import OrderSummary from "../../Components/Burger/OrderSummary/OrderSummary";
-import axios from "../../axios-orders";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import withErrorHandler from "../../HOC/withErrorHandler/withErrorHandler";
 import * as builderActions from "../../store/actions/actionsIndex";
+import axios from "../../axios-orders";
 
 class BurgerBuilder extends Component {
   state = {
-    purchasing: false,
-    loading: false,
-    error: false
+    purchasing: false
   };
-
-  componentDidMount() {
-    // fetch ingredients from the backend
-    // axios
-    //   .get("https://react-my-burger-8bf73.firebaseio.com/ingredients.json")
-    //   .then((response) => {
-    //     this.setState({ ingredients: response.data });
-    //   })
-    //     .catch(error => {
-    //       this.setState({error: true});
-    //     });
-  }
 
   // Determine if the burger has enough ingredients to be purchased
   // May not get updated state if just using the regular container state
@@ -75,7 +61,7 @@ class BurgerBuilder extends Component {
 
     let orderSummary = null;
     // Show spinner until burger ingredients load
-    let burger = this.state.error ? <p>The application can't be loaded.</p> : <Spinner />;
+    let burger = this.props.error ? <p>The application can't be loaded.</p> : <Spinner />;
     if (this.props.ings) {
       burger = (
         <Aux>
@@ -99,10 +85,6 @@ class BurgerBuilder extends Component {
           price={this.props.price}
         />
       );
-    }
-    // Show order summary unless the post request is loading
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
     }
 
     return (
