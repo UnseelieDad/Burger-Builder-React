@@ -16,19 +16,32 @@ export const purchaseBurgerFail = (error) => {
   };
 };
 
+export const purchaseBurgerStart = () => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_START,
+  };
+};
+
+export const purchaseInit = () => {
+  return {
+    type: actionTypes.PURCHASE_INIT
+  }
+}
+
 // async code
 
-export const purchaseBurgerStart = (orderData) => {
+export const purchaseBurger = (orderData) => {
   return (dispatch) => {
+    dispatch(purchaseBurgerStart());
     // Send data to a firebase endpoint
     axios
       .post("/orders.json", orderData)
       .then((response) => {
-          console.log(response.data)
-        dispatch(purchaseBurgerSuccess(response.data, orderData))
+        console.log(response.data);
+        dispatch(purchaseBurgerSuccess(response.data.name, orderData));
       })
       .catch((error) => {
-        dispatch(purchaseBurgerFail(error))
+        dispatch(purchaseBurgerFail(error));
       });
   };
 };
