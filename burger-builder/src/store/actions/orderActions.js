@@ -18,7 +18,7 @@ export const purchaseBurgerFail = (error) => {
 
 // async code
 
-const purchaseBurgerStart = (orderData) => {
+export const purchaseBurgerStart = (orderData) => {
   return (dispatch) => {
     // Send data to a firebase endpoint
     axios

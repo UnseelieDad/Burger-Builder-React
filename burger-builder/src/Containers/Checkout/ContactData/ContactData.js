@@ -6,6 +6,8 @@ import Button from "../../../Components/UI/Button/Button";
 import Spinner from "../../../Components/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
 import Input from "../../../Components/UI/Input/Input";
+import withErrorHandler from "../../../HOC/withErrorHandler/withErrorHandler";
+import * as orderActions from "../../../store/actions/actionsIndex";
 
 class ContactData extends Component {
   state = {
@@ -97,7 +99,7 @@ class ContactData extends Component {
   // submit orders
   orderHandler = (event) => {
     event.preventDefault();
-    this.setState({ loading: true });
+  
     const formData = {};
     // form data should be of the form {fieldName: value}
     for (let formElementIdentifier in this.state.orderForm) {
@@ -108,6 +110,9 @@ class ContactData extends Component {
       price: this.props.price,
       orderData: formData
     };
+    // dispatch action with order data to redux
+    this.props.onOrderBurger(order);
+
   };
 
   // validate form fields
@@ -204,4 +209,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurgerStart(orderData))
+  };
+}
+
+export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
