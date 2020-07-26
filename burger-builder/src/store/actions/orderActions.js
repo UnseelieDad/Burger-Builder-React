@@ -24,9 +24,29 @@ export const purchaseBurgerStart = () => {
 
 export const purchaseInit = () => {
   return {
-    type: actionTypes.PURCHASE_INIT
-  }
-}
+    type: actionTypes.PURCHASE_INIT,
+  };
+};
+
+export const fetchOrdersSuccess = (orders) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_SUCCESS,
+    orders: orders,
+  };
+};
+
+export const fetchOrdersFail = (error) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_FAIL,
+    error: error,
+  };
+};
+
+export const fetchOrdersStart = () => {
+  return {
+    type: actionTypes.FETCH_ORDERS_START,
+  };
+};
 
 // async code
 
@@ -42,6 +62,29 @@ export const purchaseBurger = (orderData) => {
       })
       .catch((error) => {
         dispatch(purchaseBurgerFail(error));
+      });
+  };
+};
+
+export const fetchOrders = () => {
+  return (dispatch) => {
+    dispatch(fetchOrdersStart());
+    // Retrieve orders from the database
+    axios
+      .get("/orders.json")
+      .then((res) => {
+        const fetchedOrders = [];
+        // push orders onto the fetchedOrders array
+        for (let key in res.data) {
+          fetchedOrders.push({
+            id: key,
+            ...res.data[key],
+          });
+        }
+        dispatch(fetchOrdersSuccess(fetchOrders))
+      })
+      .catch((err) => {
+        dispatch(fetchOrdersFail(err))
       });
   };
 };
