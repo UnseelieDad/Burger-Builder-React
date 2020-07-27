@@ -1,0 +1,37 @@
+React App Planning: Burger Builder App
+	Nav bar at the top
+		Builder, orders, logo
+	Visual of the buger being built
+		added dynamically as we add them
+	Control box under the burger build
+		Options, add/remove
+	Checkout button
+	Price below the burger
+	
+Component Tree:
+	App
+		Layout
+			Toolbar
+				DrawerToggle
+				Logo
+				Navigation Items
+			SideDrawer
+				Navigation Items
+				Logo
+			Backdrop
+			{props.children}
+				Different Pages
+				Burger Builder Page
+					Build Controls
+						List of build control components
+						Order button
+					Burger Component
+						Ingridient list
+					Modal for checkout
+						{props.children}
+						
+Application State: Burger Builder
+	Ingredients
+		{meet:, cheese:}
+	purchased
+	total price
