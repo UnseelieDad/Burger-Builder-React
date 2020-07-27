@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Route } from 'react-router-dom';
+import { Route } from "react-router-dom";
 
 import Layout from "./Containers/Layout/Layout";
 import BurgerBuilder from "./Containers/BurgerBuilder/BurgerBuilder";
-import Checkout from './Containers/Checkout/Checkout';
-import Orders from './Containers/Orders/Orders';
+import Checkout from "./Containers/Checkout/Checkout";
+import Orders from "./Containers/Orders/Orders";
+import Auth from "./Containers/Auth/Auth";
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
           <Route path="/" exact component={BurgerBuilder} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={Orders} />
+          <Route path="/auth" component={Auth} />
         </Layout>
       </div>
     );
