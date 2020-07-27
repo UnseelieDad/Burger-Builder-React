@@ -81,7 +81,7 @@ export const fetchOrders = () => {
             ...res.data[key],
           });
         }
-        dispatch(fetchOrdersSuccess(fetchOrders))
+        dispatch(fetchOrdersSuccess(fetchedOrders))
       })
       .catch((err) => {
         dispatch(fetchOrdersFail(err))

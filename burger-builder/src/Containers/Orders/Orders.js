@@ -15,7 +15,8 @@ class Orders extends Component {
   render() {
     let orders = <Spinner />;
     if (!this.props.loading) {
-      orders = this.state.orders.map((order) => {
+      console.log(this.props.orders)
+      orders = this.props.orders.map((order) => {
         return (
           <Order
             ingredients={order.ingredients}
