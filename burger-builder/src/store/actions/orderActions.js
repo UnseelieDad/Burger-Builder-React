@@ -50,12 +50,12 @@ export const fetchOrdersStart = () => {
 
 // async code
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
   return (dispatch) => {
     dispatch(purchaseBurgerStart());
     // Send data to a firebase endpoint
     axios
-      .post("/orders.json", orderData)
+      .post("/orders.json?auth=" + token, orderData)
       .then((response) => {
         console.log(response.data);
         dispatch(purchaseBurgerSuccess(response.data.name, orderData));
@@ -66,12 +66,12 @@ export const purchaseBurger = (orderData) => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return (dispatch) => {
     dispatch(fetchOrdersStart());
     // Retrieve orders from the database
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth=" + token)
       .then((res) => {
         const fetchedOrders = [];
         // push orders onto the fetchedOrders array
@@ -81,10 +81,10 @@ export const fetchOrders = () => {
             ...res.data[key],
           });
         }
-        dispatch(fetchOrdersSuccess(fetchedOrders))
+        dispatch(fetchOrdersSuccess(fetchedOrders));
       })
       .catch((err) => {
-        dispatch(fetchOrdersFail(err))
+        dispatch(fetchOrdersFail(err));
       });
   };
 };
