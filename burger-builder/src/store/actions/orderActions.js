@@ -66,12 +66,14 @@ export const purchaseBurger = (orderData, token) => {
   };
 };
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
   return (dispatch) => {
     dispatch(fetchOrdersStart());
+    const queryParams =
+      "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
     // Retrieve orders from the database
     axios
-      .get("/orders.json?auth=" + token)
+      .get("/orders.json" + queryParams)
       .then((res) => {
         const fetchedOrders = [];
         // push orders onto the fetchedOrders array
