@@ -8,10 +8,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (authData) => {
+export const authSuccess = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData: authData,
+    idToken: token,
+    userId: userId,
   };
 };
 
@@ -95,10 +96,10 @@ export const authCheckState = () => {
         dispatch(logout());
       } else {
         const userId = localStorage.getItem("userId");
-        dispatch(authSuccess(token));
+        dispatch(authSuccess(token, userId));
         dispatch(
           checkAuthTimeout(
-            (expirationDate.getTime() - new Date().getTime()) / 1000
+            (expirationTime.getTime() - new Date().getTime()) / 1000
           )
         );
       }
