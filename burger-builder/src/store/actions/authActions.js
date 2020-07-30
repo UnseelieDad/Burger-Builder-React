@@ -28,6 +28,13 @@ export const logout = () => {
   };
 };
 
+export const authRedirect = (path) => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path,
+  };
+};
+
 // async code
 export const auth = (email, password, isSignup) => {
   return (dispatch) => {
