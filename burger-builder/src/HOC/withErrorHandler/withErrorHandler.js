@@ -13,7 +13,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
       super(props);
 
       this.state = {
-        error: null
+        error: null,
       };
       // If sending a request, reset error state to null
       // If interceptor catches an error, set error state to true
@@ -30,13 +30,10 @@ const withErrorHandler = (WrappedComponent, axios) => {
       );
     }
 
-    
-
-    componentWillUnmount () {
+    componentWillUnmount() {
       // Clean up interceptors when they aren't needed anymore
       axios.interceptors.request.eject(this.reqInterceptor);
       axios.interceptors.response.eject(this.resInterceptor);
-      console.log("Will unmount", this.reqInterceptor, this.resInterceptor);
     }
 
     errorConfirmedHandler = () => {
